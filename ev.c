@@ -258,6 +258,15 @@
 # endif
 #endif
 
+#if !(_POSIX_TIMERS > 0)
+# ifndef EV_USE_MONOTONIC
+#  define EV_USE_MONOTONIC 0
+# endif
+# ifndef EV_USE_REALTIME
+#  define EV_USE_REALTIME 0
+# endif
+#endif
+
 #ifndef EV_USE_MONOTONIC
 # if defined _POSIX_MONOTONIC_CLOCK && _POSIX_MONOTONIC_CLOCK >= 0
 #  define EV_USE_MONOTONIC EV_FEATURE_OS
@@ -2606,7 +2615,7 @@ ev_set_invoke_pending_cb (EV_P_ ev_loop_callback invoke_pending_cb) EV_THROW
 }
 
 void
-ev_set_loop_release_cb (EV_P_ ev_loop_callback_nothrow release, ev_loop_callback_nothrow acquire) EV_THROW
+ev_set_loop_release_cb (EV_P_ void (*release)(EV_P) EV_THROW, void (*acquire)(EV_P) EV_THROW) EV_THROW
 {
   release_cb = release;
   acquire_cb = acquire;

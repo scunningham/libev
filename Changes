@@ -15,6 +15,14 @@ TODO: document portability requirements for atomic pointer access
 TODO: possible cb aliasing?
 TODO: document requirements for function pointers and calling conventions.
 
+4.19 Thu Sep 25 08:18:25 CEST 2014
+	- ev.h wasn't valid C++ anymore, which tripped compilers other than
+          clang, msvc or gcc (analyzed by Raphael 'kena' Poss). Unfortunately,
+          C++ doesn't support typedefs for function pointers fully, so the affected
+          declarations have to spell out the types each time.
+	- when not using autoconf, tighten the check for clock_gettime and related
+          functionality.
+
 4.18 Fri Sep  5 17:55:26 CEST 2014
 	- events on files were not always generated properly with the
           epoll backend (testcase by Assaf Inbal).
